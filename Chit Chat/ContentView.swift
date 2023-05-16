@@ -19,33 +19,35 @@ struct Video : Identifiable {
     var replay : Bool
 }
 
-struct VideView: View {
-    
-    let videoRef: DocumentReference
-    @State private var player: AVPlayer?
-    
-    var body: some View {
-        VStack {
-            VideoPlayer(player: player)
-                .onAppear {
-                    
-                    videoRef.getDocument { (document, error) in
-                        if let document = document, document.exists {
-                            print("Document Full Response : \(document)")
-                            let videoURL = document.data()?["url"] as? String
-                            print("Document videoURL Response : \(videoURL)")
-                            let videoLikes = document.data()?["likes"] as? String
-                            //let videoComments = document.data()?["comments"] as? String
-                            self.player = AVPlayer(url: URL(string: videoURL ?? "hello")!)
-                        } else {
-                            print("Document does not exist")
-                        }
-                    }
-            }
-        }
-    }
-    
-}
+//struct VideView: View {
+//
+//    let videoRef: DocumentReference
+//    @State private var player: AVPlayer?
+//
+//    var body: some View {
+//        VStack {
+//            VideoPlayer(player: player)
+//                .onAppear {
+//
+//                    videoRef.getDocument { (document, error) in
+//                        if let document = document, document.exists {
+//                            print("Document Full Response : \(document)")
+//                            let videoURL = document.data()?["url"] as? String
+//                            print("Document videoURL Response : \(videoURL)")
+//                            let videoLikes = document.data()?["likes"] as? String
+//                            //let videoComments = document.data()?["comments"] as? String
+//                            self.player = AVPlayer(url: URL(string: videoURL ?? "hello")!)
+//                        } else {
+//                            print("Document does not exist")
+//                        }
+//                    }
+//            }
+//        }
+//    }
+//
+//}
+
+
 class MyViewModel: ObservableObject {
     
     @Published var videoURL: String = ""
@@ -109,7 +111,7 @@ struct PlayerView : View{
         .onAppear(){
             print(data.count)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                 //if data.count > 0 {
                     self.data[0].player.play()
                     self.data[0].player.actionAtItemEnd = .none
