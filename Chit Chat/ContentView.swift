@@ -305,7 +305,7 @@ struct PlayerScrollView : UIViewRepresentable{
             
             if index != currentIndex{
                 index = currentIndex
-                
+                print(index)
                 for i in 0..<parent.data.count{
                     parent.data[i].player.seek(to: .zero)
                     parent.data[i].player.pause()
